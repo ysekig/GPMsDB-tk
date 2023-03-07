@@ -42,6 +42,8 @@ export GPMsDB_PATH=/path/to/release/package/
   * peak          -> Annotate protein names and Tigrfam/Pfam markers genes
   * peak_wf       -> Full peak-list characterization workflow
   * peak_bwf      -> Full peak-list characterization workflow for a batch of files
+
+If you are interested in costumizing the database with user-provided genomes/metagenome-assembled genomes (MAGs), [pGPMsDB-dbtk](https://github.com/ysekig/GPMsDB-dbtk) should also be installed.
 			
 ## Bug Reports
 
