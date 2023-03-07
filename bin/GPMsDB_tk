@@ -1,0 +1,312 @@
+#!/usr/bin/env python
+
+__author__ = 'Yuji Sekiguchi'
+__copyright__ = 'Copyright (c) 2023 Yuji Sekiguchi, National Institute of Advanced Industrial Science and Technology (AIST)'
+__credits__ = ['Yuji Sekiguchi']
+__license__ = 'CC BY-NC-SA 4.0'
+__maintainer__ = 'Yuji Sekiguchi'
+__email__ = 'y.sekiguchi@aist.go.jp'
+__status__ = 'Development'
+
+import sys
+import argparse
+import os
+
+from GPMsDB_tk import __version__
+from GPMsDB_tk.main import OptionsParser
+from GPMsDB_tk.defaultValues import DefaultValues
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+
+def version():
+    import GPMsDB_tk
+    versionFile = open(os.path.join(GPMsDB_tk_ident.__path__[0], 'VERSION'))
+    return versionFile.readline().strip()
+
+
+def print_help():
+    print('')
+    print('               .. GPMsDB toolkit v' + __version__ + ' ..')
+    print('''\
+
+    Peak-list characterization:
+      inspect       -> Inspection of a peak-list and generate peak plots
+      adjust        -> m/z adjustment for given peak-list
+
+    Strain identification based on peak-list(s)
+      identify      -> Search for the best-matched genome(s) without m/z adjustment
+      identify_wf   -> Full identification workflow
+                       (adjust -> identify)
+      identify_bwf  -> Full identification workflow for a batch of files
+                       (adjust -> identify)
+
+    Peak annotation
+      peak          -> Annotate protein names for peaks in a peak list with a given genome
+      peak_wf       -> Full peak-list characterization workflow
+                       (adjust -> identify -> peak)
+      peak_bwf      -> Full peak-list characterization workflow for a batch of files
+                       (adjust -> identify -> peak)
+
+  Usage: GPMsDB_tk <command> -h for command specific help.
+
+  Feature requests or bug reports can be sent to Yuji Sekiguchi (y.sekiguchi@aist.go.jp)
+    or posted on GitHub (https://github.com/.....).
+    ''')
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(add_help=False)
+    subparsers = parser.add_subparsers(help="--", dest='subparser_name')
+
+    # Inspect peak list
+    inspection = subparsers.add_parser(
+        'inspect', formatter_class=argparse.ArgumentDefaultsHelpFormatter, description='Inspect the given peak-list and generate peak graphs.')
+    inspection.add_argument('input_file',
+                            help='a file containing peak information as tsv [mw, int]')
+    inspection.add_argument('-o',
+                            '--out_dir', help='output directory', default="out")
+    inspection.add_argument('-ft',
+                            '--filetype', type=str, help='output file type', default='png', choices=['png', 'pdf'])
+    inspection.add_argument(
+        '--silent', dest='silent', action="store_true", default=False, help="suppress console output")
+
+    # Adjust peak list
+    adjust_masspeak = subparsers.add_parser(
+        'adjust', formatter_class=argparse.ArgumentDefaultsHelpFormatter, description='m/z adjustment for given peak-list.')
+    adjust_masspeak.add_argument('input_file',
+                                 help='a file containing peak information as tsv [mw, int]')
+    adjust_masspeak.add_argument('-pr',
+                                 '--ppm_range', type=int, help='range of torelance (ppm) to check ', default=DefaultValues.CHECK_RANGE)
+    adjust_masspeak.add_argument('-n',
+                                 '--number_of_bins', type=int, help='numbert of bins to be tested for given range of ppm.', default=DefaultValues.NO_BIN)
+    adjust_masspeak.add_argument('-m',
+                                 '--minimum', type=float, help='minimum peak relative abundance to use (0.001 as 0.1%%)', default=DefaultValues.MIN_PEAK)
+    adjust_masspeak.add_argument(
+        '--silent', dest='silent', action="store_true", default=False, help="suppress console output")
+
+    # Identify taxon based on peak list
+    identify_masspeak_info = subparsers.add_parser(
+        'identify', formatter_class=argparse.ArgumentDefaultsHelpFormatter, description='Search fot the best matched genomes without m/z adjustment.')
+    identify_masspeak_info.add_argument('input_file',
+                                        help='a file containing peak information as tsv [mw, int]')
+    identify_masspeak_info.add_argument('-r',
+                                        '--reference', type=str, help='reference: representatives(reps), all genomes(all), or custom(custom)', default='reps', choices=['reps', 'all', 'cust'])
+    identify_masspeak_info.add_argument('-p',
+                                        '--ppm', type=float, help='torelance (ppm)', default=DefaultValues.TORELANCE)
+    identify_masspeak_info.add_argument('-f',
+                                        '--first', type=int, help='number of hits retained in the 1st screening based on ribosomal proteins', default=DefaultValues.HIT_RETAIN_FST)
+    identify_masspeak_info.add_argument('-t',
+                                        '--top', type=int, help='number of top hits shown', default=DefaultValues.HIT_SHOW)
+    identify_masspeak_info.add_argument('-s',
+                                        '--score_type', type=str, help='score calculation based on: weighted, unweighted, or ms', default='weighted', choices=['weighted', 'unweighted', 'ms'])
+    identify_masspeak_info.add_argument('-a',
+                                        '--adjust', type=float, help='adjust m/z (ppm)', default=0)
+    identify_masspeak_info.add_argument('-m',
+                                        '--minimum', type=float, help='minimum peak relative abundance to use (0.001 as 0.1%%)', default=DefaultValues.MIN_PEAK)
+    identify_masspeak_info.add_argument('-tax',
+                                        '--taxonomy', type=str, help='taxonomy type', default='gtdb', choices=['gtdb', 'gg', 'silva'])
+    identify_masspeak_info.add_argument(
+        '--silent', dest='silent', action="store_true", default=False, help="suppress console output")
+
+    # Identify taxon based on peak list
+    identify_full_masspeak_info = subparsers.add_parser(
+        'identify_wf', formatter_class=argparse.ArgumentDefaultsHelpFormatter, description='Search for the best matched genomes with m/z adjustment.')
+    identify_full_masspeak_info.add_argument('input_file',
+                                             help='a file containing peak information as tsv [mw, int]')
+    identify_full_masspeak_info.add_argument('-r',
+                                             '--reference', type=str, help='reference: representatives(reps) , all genomes(all), or custom(custom)', default='reps', choices=['reps', 'all', 'custom'])
+    identify_full_masspeak_info.add_argument('-p',
+                                             '--ppm', type=float, help='torelance (ppm)', default=DefaultValues.TORELANCE)
+    identify_full_masspeak_info.add_argument('-a',
+                                             '--adjust', type=float, help='adjust m/z (ppm)', default=0)
+    identify_full_masspeak_info.add_argument('-aa',
+                                             '--auto_adjust', help='auto-adjustment of m/z', action='store_true')                                            
+    identify_full_masspeak_info.add_argument('-pr',
+                                             '--ppm_range', type=int, help='range of torelance (ppm) to check ', default=DefaultValues.CHECK_RANGE)
+    identify_full_masspeak_info.add_argument('-n',
+                                             '--number_of_bins', type=int, help='numbert of bins to be tested for given range of ppm.', default=DefaultValues.NO_BIN)
+    identify_full_masspeak_info.add_argument('-f',
+                                             '--first', type=int, help='number of hits retained in the 1st screening based on ribosomal proteins', default=DefaultValues.HIT_RETAIN_FST)
+    identify_full_masspeak_info.add_argument('-t',
+                                             '--top', type=int, help='number of top hits shown', default=DefaultValues.HIT_SHOW)
+    identify_full_masspeak_info.add_argument('-s',
+                                             '--score_type', type=str, help='score calculation based on: weighted, unweighted, or ms', default='weighted', choices=['weighted', 'unweighted', 'ms'])
+    identify_full_masspeak_info.add_argument('-m',
+                                             '--minimum', type=float, help='minimum peak relative abundance to use (0.001 as 0.1%%)', default=DefaultValues.MIN_PEAK)
+    identify_full_masspeak_info.add_argument('-tax',
+                                             '--taxonomy', type=str, help='taxonomy type', default='gtdb', choices=['gtdb', 'gg', 'silva'])
+    identify_full_masspeak_info.add_argument(
+        '--silent', dest='silent', action="store_true", default=False, help="suppress console output")
+
+    # Batch workflow for identification
+    identify_bwf = subparsers.add_parser(
+        'identify_bwf', formatter_class=argparse.ArgumentDefaultsHelpFormatter, description='Batch search for the best matched genomes.')
+    identify_bwf.add_argument('input_list',
+                              help='a file containing peak information as tsv [mw, int]')
+    identify_bwf.add_argument('out_dir',
+                              help='output directory')
+    identify_bwf.add_argument('-aa',
+                              '--auto_adjust', help='auto-adjustment of m/z', action='store_true')
+    identify_bwf.add_argument('-pr',
+                              '--ppm_range', type=int, help='range of torelance (ppm) to check ', default=DefaultValues.CHECK_RANGE)
+    identify_bwf.add_argument('-n',
+                              '--number_of_bins', type=int, help='numbert of bins to be tested for given range of ppm.', default=5)
+    identify_bwf.add_argument('-r',
+                              '--reference', type=str, help='reference: representatives(reps), all genomes(all), or custom(custom)', default='reps', choices=['reps', 'all', 'custom'])
+    identify_bwf.add_argument('-p',
+                              '--ppm', type=float, help='torelance (ppm)', default=DefaultValues.TORELANCE)
+    identify_bwf.add_argument('-f',
+                              '--first', type=int, help='number of hits retained in the 1st screening based on ribosomal proteins', default=DefaultValues.HIT_RETAIN_FST)
+    identify_bwf.add_argument('-t',
+                              '--top', type=int, help='number of top hits shown', default=DefaultValues.HIT_SHOW)
+    identify_bwf.add_argument('-c',
+                              '--core', type=int, help='number of threads', default=DefaultValues.NO_THREAD)
+    identify_bwf.add_argument('-s',
+                              '--score_type', type=str, help='score calculation based on: weighted, unweighted, or ms', default='weighted', choices=['weighted', 'unweighted', 'ms'])
+    identify_bwf.add_argument('-m',
+                              '--minimum', type=float, help='minimum peak relative abundance to use (0.001 as 0.1%%)', default=DefaultValues.MIN_PEAK)
+    identify_bwf.add_argument('-fs',
+                              '--fast', help='auto-adjustment in a faster way (under development)', action='store_true')
+    identify_bwf.add_argument('-tax',
+                              '--taxonomy', type=str, help='taxonomy type', default='gtdb', choices=['gtdb', 'gg', 'silva'])
+
+    # Parse peak annotation
+    parse_masspeak_info = subparsers.add_parser(
+        'peak', formatter_class=argparse.ArgumentDefaultsHelpFormatter, description='Annotate peak identity based on given genome.')
+    parse_masspeak_info.add_argument('input_file',
+                                     help='a file containing peak information as tsv [mw, int]')
+    parse_masspeak_info.add_argument(
+        'genome_ref', help='genome ID for organism of interest (e.g. GCA_000006155.2)')
+    parse_masspeak_info.add_argument('-o',
+                                     '--out_dir', help='output directory', default="out")
+    parse_masspeak_info.add_argument('-p',
+                                     '--ppm', type=float, help='torelance (ppm)', default=DefaultValues.TORELANCE)
+    parse_masspeak_info.add_argument('-a',
+                             '--adjust', type=float, help='adjust m/z (ppm)', default=0)
+    parse_masspeak_info.add_argument('-m',
+                                     '--minimum', type=float, help='minimum peak relative abundance to use (0.001 as 0.1%%)', default=DefaultValues.MIN_PEAK)
+    parse_masspeak_info.add_argument('-ft',
+                                     '--filetype', type=str, help='output file type', default='png', choices=['png', 'pdf'])
+    parse_masspeak_info.add_argument(
+        '--silent', dest='silent', action="store_true", default=False, help="suppress console output")
+
+    # Peak workflow
+    identify_wf = subparsers.add_parser(
+        'peak_wf', formatter_class=argparse.ArgumentDefaultsHelpFormatter, description='Search for the best matched genomes with peak annotation.')
+    identify_wf.add_argument('input_file',
+                             help='a file containing peak information as tsv [mw, int]')
+    identify_wf.add_argument('-o',
+                             '--out_dir', help='output directory', default="./")
+    identify_wf.add_argument('-pr',
+                             '--ppm_range', type=int, help='range of torelance (ppm) to check ', default=DefaultValues.CHECK_RANGE)
+    identify_wf.add_argument('-n',
+                             '--number_of_bins', type=int, help='numbert of bins to be tested for given range of ppm.', default=DefaultValues.NO_BIN)
+    identify_wf.add_argument('-a',
+                             '--adjust', type=float, help='adjust m/z (ppm)', default=0)
+    identify_wf.add_argument('-r',
+                             '--reference', type=str, help='reference: all/reps/custom', default='reps', choices=['all', 'reps', 'custom'])
+    identify_wf.add_argument('-aa',
+                             '--auto_adjust', help='auto-adjustment of m/z', action='store_true')
+    identify_wf.add_argument('-p',
+                             '--ppm', type=float, help='torelance (ppm)', default=DefaultValues.TORELANCE)
+    identify_wf.add_argument('-f',
+                             '--first', type=int, help='number of hits retained in the 1st screening based on ribosomal proteins', default=DefaultValues.HIT_RETAIN_FST)
+    identify_wf.add_argument('-t',
+                             '--top', type=int, help='number of top hits shown', default=DefaultValues.HIT_SHOW)
+    identify_wf.add_argument('-s',
+                             '--score_type', type=str, help='score calculation based on: weighted, unweighted, or ms', default='weighted', choices=['weighted', 'unweighted', 'ms'])
+    identify_wf.add_argument('-m',
+                             '--minimum', type=float, help='minimum peak relative abundance to use (0.001 as 0.1%%)', default=DefaultValues.MIN_PEAK)
+    identify_wf.add_argument('-fs',
+                             '--fast', help='auto-adjustment in a faster way (test)', action='store_true')
+    identify_wf.add_argument('-ft',
+                             '--filetype', type=str, help='output file type', default='png', choices=['png', 'pdf'])
+    identify_wf.add_argument('-tax',
+                             '--taxonomy', type=str, help='taxonomy type', default='gtdb', choices=['gtdb', 'gg', 'silva'])
+    identify_wf.add_argument(
+        '--silent', dest='silent', action="store_true", default=False, help="suppress console output")
+
+    # Batch workflow
+    bidentify_wf = subparsers.add_parser(
+        'peak_bwf', formatter_class=argparse.ArgumentDefaultsHelpFormatter, description='Batch search for the best matched genomes with peak annotation.')
+    bidentify_wf.add_argument('input_list',
+                              help='a file containing peak information as tsv [mw, int]')
+    bidentify_wf.add_argument('out_dir',
+                              help='output directory')
+    bidentify_wf.add_argument('-aa',
+                              '--auto_adjust', help='auto-adjustment of m/z', action='store_true')
+    bidentify_wf.add_argument('-pr',
+                              '--ppm_range', type=int, help='range of torelance (ppm) to check ', default=DefaultValues.CHECK_RANGE)
+    bidentify_wf.add_argument('-n',
+                              '--number_of_bins', type=int, help='numbert of bins to be tested for given range of ppm.', default=5)
+    bidentify_wf.add_argument('-r',
+                              '--reference', type=str, help='reference: representatives(reps), all genomes(all), or custom(custom)', default='reps', choices=['reps', 'all', 'custom'])
+    bidentify_wf.add_argument('-p',
+                              '--ppm', type=float, help='torelance (ppm)', default=DefaultValues.TORELANCE)
+    bidentify_wf.add_argument('-f',
+                              '--first', type=int, help='number of hits retained in the 1st screening based on ribosomal proteins', default=DefaultValues.HIT_RETAIN_FST)
+    bidentify_wf.add_argument('-t',
+                              '--top', type=int, help='number of top hits shown', default=DefaultValues.HIT_SHOW)
+    bidentify_wf.add_argument('-c',
+                              '--core', type=int, help='number of threads', default=DefaultValues.NO_THREAD)
+    bidentify_wf.add_argument('-s',
+                              '--score_type', type=str, help='score calculation based on: weighted, unweighted, or ms', default='weighted', choices=['weighted', 'unweighted', 'ms'])
+    bidentify_wf.add_argument('-m',
+                              '--minimum', type=float, help='minimum peak relative abundance to use (0.001 as 0.1%%)', default=DefaultValues.MIN_PEAK)
+    bidentify_wf.add_argument('-fs',
+                              '--fast', help='auto-adjustment in a faster way (test)', action='store_true')
+    bidentify_wf.add_argument('-ft',
+                              '--filetype', type=str, help='output file type', default='png', choices=['png', 'pdf'])
+    bidentify_wf.add_argument('-tax',
+                              '--taxonomy', type=str, help='taxonomy type', default='gtdb', choices=['gtdb', 'gg', 'silva'])
+
+    # Batch workflow (debugging)
+    dbidentify_wf = subparsers.add_parser(
+        'debug', formatter_class=argparse.ArgumentDefaultsHelpFormatter, description='Batch calculation of scores.')
+    dbidentify_wf.add_argument('input_list',
+                               help='a file containing peak information as tsv [mw, int]')
+    dbidentify_wf.add_argument('out_dir',
+                               help='output directory')
+    dbidentify_wf.add_argument('-a',
+                               '--auto_adjust', help='auto-adjustment of m/z', action='store_true')
+    dbidentify_wf.add_argument('-pr',
+                               '--ppm_range', type=int, help='range of torelance (ppm) to check ', default=DefaultValues.CHECK_RANGE)
+    dbidentify_wf.add_argument('-n',
+                               '--number_of_bins', type=int, help='numbert of bins to be tested for given range of ppm.', default=5)
+    dbidentify_wf.add_argument('-r',
+                               '--reference', type=str, help='reference: representatives(reps), all genomes(all), or custom(custom)', default='reps', choices=['reps', 'all', 'custom'])
+    dbidentify_wf.add_argument('-p',
+                               '--ppm', type=float, help='torelance (ppm)', default=DefaultValues.TORELANCE)
+    dbidentify_wf.add_argument('-c',
+                               '--core', type=int, help='number of threads', default=DefaultValues.NO_THREAD)
+    dbidentify_wf.add_argument('-s',
+                               '--score_type', type=str, help='score calculation based on: weighted, unweighted, or ms', default='weighted', choices=['weighted', 'unweighted', 'ms'])
+    dbidentify_wf.add_argument('-m',
+                               '--minimum', type=float, help='minimum peak relative abundance to use (0.001 as 0.1%%)', default=DefaultValues.MIN_PEAK)
+    dbidentify_wf.add_argument('-gen',
+                               '--gene_number', type=str, help='score calculation with/without limiting the denominator for scoring (800 genes): limit or linear', default='limit', choices=['limit', 'linear'])
+
+    # check options
+    args = None
+    if (len(sys.argv) == 1 or sys.argv[1] == '-h' or sys.argv == '--help'):
+        print_help()
+        sys.exit(0)
+    else:
+        args = parser.parse_args()
+
+    try:
+        parser = OptionsParser()
+        if (False):
+            import cProfile
+            cProfile.run('parser.parse_options(args)', 'prof')
+        elif False:
+            import pdb
+            pdb.run(parser.parse_options(args))
+        else:
+            parser.parse_options(args)
+    except SystemExit:
+        print("  Controlled exit resulting from an unrecoverable error or warning.")
+    except:
+        print("\nUnexpected error:", sys.exc_info()[0])
+        raise
