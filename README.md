@@ -29,7 +29,7 @@ GPMsDB-tk requires an environment variable named GPMsDB_PATH to be set to the di
 export GPMsDB_PATH=/path/to/release/package/
 ```
 
-### Features
+## Features
 
 * Peak-list characterization:
   * inspect       -> Inspection of a peak-list and generate peak plots
