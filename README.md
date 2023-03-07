@@ -1,4 +1,4 @@
-## GPMsDB-tk
+# GPMsDB-tk
 
 GPMsDB-tk v1.0.1 was released on March 7, 2023. 
 
@@ -44,12 +44,10 @@ export GPMsDB_PATH=/path/to/release/package/
   * peak_bwf      -> Full peak-list characterization workflow for a batch of files
 			
 ## Bug Reports
--------------
 
 Please report bugs through the GitHub issues system, or contact Yuji Sekiguchi (y.sekiguchi@aist.go.jp)
 
 ## Copyright
--------------
 
 Copyright (C) 2023 Yuji Sekiguchi, National Institute of Advanced Industrial Science and Technology (AIST)
 
