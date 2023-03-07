@@ -18,10 +18,10 @@ In the source directory, the following command will compile and install the soft
 python setup.py install
 ```
 
-GPMsDB-tk requires ~60 GB of external data that needs to be downloaded and unarchived:
+GPMsDB-tk requires ~7 GB of external data that needs to be downloaded from Zonodo (DOI: 10.5281/zenodo.7703482) and unarchived:
+
 ```bash
-wget https://....data.tar.gz
-tar xvzf ....data.tar.gz
+tar xvzf R01-RS95.tar.gz
 ```
 
 GPMsDB-tk requires an environment variable named GPMsDB_PATH to be set to the directory containing the unarchived reference data.
