@@ -1,5 +1,4 @@
 ## GPMsDB-tk
--------------
 
 GPMsDB-tk v1.0.1 was released on March 7, 2023. 
 
@@ -8,7 +7,6 @@ GPMsDB-tk/GPMsDB-dbtk are software toolkits for assigning taxonomic identificati
 Please post questions and issues related to ms-identification-tk on the Issues section of the GitHub repository.
 
 ## Installing and using GPMsDB-tk
--------------
 
 Prerequisites
 * Python (version 3.7 or higher)
@@ -32,7 +30,6 @@ export GPMsDB_PATH=/path/to/release/package/
 ```
 
 ### Features
--------------
 
 * Peak-list characterization:
   * inspect       -> Inspection of a peak-list and generate peak plots
