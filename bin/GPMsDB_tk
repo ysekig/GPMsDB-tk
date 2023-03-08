@@ -51,7 +51,7 @@ def print_help():
   Usage: GPMsDB_tk <command> -h for command specific help.
 
   Feature requests or bug reports can be sent to Yuji Sekiguchi (y.sekiguchi@aist.go.jp)
-    or posted on GitHub (https://github.com/.....).
+    or posted on GitHub (https://github.com/ysekig/GPMsDB-tk).
     ''')
 
 
