@@ -15,6 +15,8 @@ Prerequisites
 
 In the source directory, the following command will compile and install the software in your python environment.
 ```bash
+git clone https://github.com/ysekig/GPMsDB-tk
+cd GPMsDB-tk
 python setup.py install
 ```
 
