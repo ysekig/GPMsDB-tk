@@ -46,7 +46,18 @@ If you are interested in customizing the database with user-provided genomes/met
   * peak          -> Annotate protein names and Tigrfam/Pfam markers genes
   * peak_wf       -> Full peak-list characterization workflow
   * peak_bwf      -> Full peak-list characterization workflow for a batch of files
-			
+
+## Output values for the option "identify"
+
+* protein_hit: number of hits with all proteins predicted for reference genome
+* ribosomal_hit: number of hits with ribosomal proteins predicted for reference genome
+* score: matching value calculated for reference genome (higher better matching)
+* probability ("p-value"): the frequency of appearance of a given score inferred based on scores from 100 randomely selected reference genomes
+* likelihood(%): likelihood of correct identification (empirical, based on ribosomal_hit and probability.
+* ncbi_name: NCBI oraganism name (genus/species) for reference genome
+* ncbi_strain: NCBI strain name for reference genome
+* taxonomy_gtdb: GTDB taxonomy string for reference genome
+
 ## Bug Reports
 
 Please report bugs through the GitHub issues system, or contact Yuji Sekiguchi (y.sekiguchi@aist.go.jp)
