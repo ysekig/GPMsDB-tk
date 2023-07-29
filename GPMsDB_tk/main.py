@@ -119,7 +119,7 @@ class OptionsParser():
 
         self.logger.info('[identify] Loading databases.')
         tax_db, reps_db, all_db, strain_list, no_genes = selectDb(
-            options.reference, options.taxonomy, option.lineage)
+            options.reference, options.taxonomy)
 
         ncbi_db = DefaultValues.TAX_NCBI
         with open(ncbi_db, 'rb') as f:
@@ -178,8 +178,7 @@ class OptionsParser():
               options.taxonomy,
               t_peak,
               p_use,
-              options.minimum,
-              option.lineage)
+              options.minimum)
 
         self.stopwatch.lap()
 

@@ -22,35 +22,23 @@ class SearchBestHit(object):
         self.logger = logging.getLogger('GPMsDB_tk')
 
     def run(self, input_file, reference, peaks, ppm, first, top, score_type, adjust, reps_db, 
-        all_db, tax, ncbi, strain, com, genes, taxonomy, t_peak, t_use, minimum, lineage):
+        all_db, tax, ncbi, strain, com, genes, taxonomy, t_peak, t_use, minimum):
         # first search
         self.logger.info('[identify] 1st search.')
 
         hit, exact = CalcHit(self, peaks, adjust, ppm, 1, reps_db, score_type)
 
         ramd = 0
-        if lineage == "prokaryotes":
-            num1 = DefaultValues.HIT_EXCLUDE_REP_PR
-            num2 = DefaultValues.HIT_EXCLUDE_ALL_PR
-            num3 = DefaultValues.HIT_EXCLUDE_ALL2_PR
-            prob1 =DefaultValues.PROBABIL_RIBOSOMAL_PR
-            if reference == "reps":
-                prob2 = DefaultValues.PROBABIL_REPS_90_PR
-                prob3 = DefaultValues.PROBABIL_REPS_99_PR
-            elif reference == "all" or "custom":
-                prob2 = DefaultValues.PROBABIL_ALL_90_PR
-                prob3 = DefaultValues.PROBABIL_ALL_99_PR
-        else:
-            num1 = DefaultValues.HIT_EXCLUDE_REP_FG
-            num2 = DefaultValues.HIT_EXCLUDE_ALL_FG
-            num3 = DefaultValues.HIT_EXCLUDE_ALL2_FG
-            prob1 =DefaultValues.PROBABIL_RIBOSOMAL_FG
-            if reference == "reps":
-                prob2 = DefaultValues.PROBABIL_REPS_90_FG
-                prob3 = DefaultValues.PROBABIL_REPS_99_FG
-            elif reference == "all" or "custom":
-                prob2 = DefaultValues.PROBABIL_ALL_90_FG
-                prob3 = DefaultValues.PROBABIL_ALL_99_FG
+        num1 = DefaultValues.HIT_EXCLUDE_REP
+        num2 = DefaultValues.HIT_EXCLUDE_ALL
+        num3 = DefaultValues.HIT_EXCLUDE_ALL2
+        prob1 =DefaultValues.PROBABIL_RIBOSOMAL
+        if reference == "reps":
+            prob2 = DefaultValues.PROBABIL_REPS_90
+            prob3 = DefaultValues.PROBABIL_REPS_99
+        elif reference == "all" or "custom":
+            prob2 = DefaultValues.PROBABIL_ALL_90
+            prob3 = DefaultValues.PROBABIL_ALL_99
 
         result = sorted(hit.items(), key=lambda x: x[1], reverse=True)[
             :int(first)]

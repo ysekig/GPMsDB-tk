@@ -29,15 +29,11 @@ class DefaultValues():
     MIN_PEAK = 0.0002        #minimum peak relative abundance (0.001 as 0.1%%)'
 
     HIT_RETAIN_FST = 200    #number of hits retained in the 1st screening based on ribosomal proteins
-    HIT_SHOW = 20           #number of top hits shown
+    HIT_SHOW = 20          #number of top hits shown
 
-    HIT_EXCLUDE_REP_PR = 500    #prokaryotes: number of top hits excluded for calculating average scores in representative db
-    HIT_EXCLUDE_ALL_PR = 50000    #prokaryotes: number of top hits excluded for calculating average scores in all db
-    HIT_EXCLUDE_ALL2_PR = 200    #prokaryotes: number of top hits excluded for calculating average scores in all db (2nd criteria)
-
-    HIT_EXCLUDE_REP_FG = 500    #fungi: number of top hits excluded for calculating average scores in representative db
-    HIT_EXCLUDE_ALL_FG = 50000    #fungi: number of top hits excluded for calculating average scores in all db
-    HIT_EXCLUDE_ALL2_FG = 200    #fungi: number of top hits excluded for calculating average scores in all db (2nd criteria)
+    HIT_EXCLUDE_REP = 500    #number of top hits excluded for calculating average scores in representative db
+    HIT_EXCLUDE_ALL = 50000    #number of top hits excluded for calculating average scores in all db
+    HIT_EXCLUDE_ALL2 = 200    #number of top hits excluded for calculating average scores in all db (2nd criteria)
 
     GENE_LIMIT = 800    #number of genes under which gene number normalization is canceled
     RIBOSOMAL_WEIGHT = 7      #weighting of ribosomal protein detection compared with other proteins
@@ -64,14 +60,8 @@ class DefaultValues():
     CUSTOM_LIST_NAME = os.path.join(GPMsDB_PATH, 'custom', 'custom_names.db')
     CUSTOM_LIST_TAX = os.path.join(GPMsDB_PATH, 'custom', 'custom_taxonomy.db')
     
-    PROBABIL_RIBOSOMAL_PR = 5   # for proklaryotes
-    PROBABIL_REPS_90_PR = 0.00001
-    PROBABIL_REPS_99_PR = 0.000001
-    PROBABIL_ALL_90_PR =  0.000001
-    PROBABIL_ALL_99_PR =  0.0000001
-
-    PROBABIL_RIBOSOMAL_FG = 5   # for fungi
-    PROBABIL_REPS_90_FG = 0.00001
-    PROBABIL_REPS_99_FG = 0.000001
-    PROBABIL_ALL_90_FG =  0.000001
-    PROBABIL_ALL_99_FG =  0.0000001
+    PROBABIL_RIBOSOMAL = 5
+    PROBABIL_REPS_90 = 0.00001
+    PROBABIL_REPS_99 = 0.000001
+    PROBABIL_ALL_90 =  0.000001
+    PROBABIL_ALL_99 =  0.0000001
