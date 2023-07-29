@@ -62,49 +62,35 @@ def PeakLoader(inputFile, minimum):
     return peaks, total, p_use, com
 
 
-def selectDb(ref, tax, lineage):
-    if lineage == "prokaryotes":
-        if tax == "genome":
-            tax_db = DefaultValues.TAX_GT_PR
-        elif tax == "silva":
-            tax_db = DefaultValues.TAX_SILVA_PR
-        elif tax == "ncbi":
-            tax_db = DefaultValues.TAX_NCBI_PR
+def selectDb(ref, tax):
+    if tax == "gtdb":
+        tax_db = DefaultValues.TAX_GTDB
+    elif tax == "gg":
+        tax_db = DefaultValues.TAX_GG
+    elif tax == "silva":
+        tax_db = DefaultValues.TAX_SILVA
+    elif tax == "ncbi":
+        tax_db = DefaultValues.TAX_NCBI
 
-        if ref == 'reps':
-            db_rep = DefaultValues.REPS_REPS_DB_PR
-            db_all = DefaultValues.REPS_ALL_DB_PR
-            no_genes = DefaultValues.REPS_GENE_PR
-        if ref == 'all':
-            db_rep = DefaultValues.ALL_REPS_DB_PR
-            db_all = DefaultValues.ALL_ALL_DB_PR
-            no_genes = DefaultValues.GENE_PR
-        if ref == 'custom':
-            db_rep = DefaultValues.ALL_REPS_DB_PR
-            db_all = DefaultValues.ALL_ALL_DB_PR
-            no_genes = DefaultValues.GENE_PR
-        strain_list = DefaultValues.STRAIN_DB_PR
-    else:
-        if tax == "genome":
-            tax_db = DefaultValues.TAX_GT_FG
-        elif tax == "silva":
-            tax_db = DefaultValues.TAX_SILVA_FG
-        elif tax == "ncbi":
-            tax_db = DefaultValues.TAX_NCBI_FG
+    if ref == 'reps':
+        db_rep = DefaultValues.REPS_REPS_DB
+        db_all = DefaultValues.REPS_ALL_DB
+        no_genes = DefaultValues.REPS_GENE
+    if ref == 'all':
+        db_rep = DefaultValues.ALL_REPS_DB
+        db_all = DefaultValues.ALL_ALL_DB
+        no_genes = DefaultValues.ALL_GENE
+    if ref == 'cust':
+        db_rep = DefaultValues.ALL_REPS_DB
+        db_all = DefaultValues.ALL_ALL_DB
+        no_genes = DefaultValues.ALL_GENE
+        db_rep_c = DefaultValues.CUSTOM_LIST_R
+        db_all_c = DefaultValues.CUSTOM_LIST_O
+        no_genes_c = DefaultValues.CUSTOM_LIST_GENES
+        strain_list_c = DefaultValues.CUSTOM_LIST_NAME
+        tax_db_c = DefaultValues.CUSTOM_LIST_TAX
 
-        if ref == 'reps':
-            db_rep = DefaultValues.REPS_REPS_DB_FG
-            db_all = DefaultValues.REPS_ALL_DB_FG
-            no_genes = DefaultValues.REPS_GENE_FG
-        if ref == 'all':
-            db_rep = DefaultValues.ALL_REPS_DB_FG
-            db_all = DefaultValues.ALL_ALL_DB_FG
-            no_genes = DefaultValues.GENE_FG
-        if ref == 'custom':
-            db_rep = DefaultValues.ALL_REPS_DB_FG
-            db_all = DefaultValues.ALL_ALL_DB_FG
-            no_genes = DefaultValues.GENE_FG
-        strain_list = DefaultValues.STRAIN_DB_FG
+    strain_list = DefaultValues.STRAIN_DB
 
     return tax_db, db_rep, db_all, strain_list, no_genes
 
