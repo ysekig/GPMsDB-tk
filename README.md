@@ -41,13 +41,12 @@ If you are interested in customizing the database with user-provided genomes/met
   * adjust        -> m/z adjustment for given peak-list
 * Strain identification based on peak-list(s)
   * identify      -> Search for the best-matching genome(s) without m/z adjustment
-  * identify_wf   -> Full identification workflow
-                     option "-aa" should be set for m/z adjustment
-  * identify_bwf   -> Full identification workflow for a batch of files
+  * identify_wf   -> Full identification workflow (option "-aa" should be set for m/z adjustment)
+  * identify_bwf   -> Full identification workflow for a batch of files (option "-aa" should be set for m/z adjustment)
 * Peak annotation
   * peak          -> Annotate protein names and Tigrfam/Pfam markers genes
-  * peak_wf       -> Full peak-list characterization workflow
-  * peak_bwf      -> Full peak-list characterization workflow for a batch of files
+  * peak_wf       -> Full peak-list characterization workflow (option "-aa" should be set for m/z adjustment)
+  * peak_bwf      -> Full peak-list characterization workflow for a batch of files (option "-aa" should be set for m/z adjustment)
 
 ## Output values for the option "identify"
 
