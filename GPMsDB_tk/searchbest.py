@@ -3,7 +3,7 @@
 __author__ = 'Yuji Sekiguchi'
 __copyright__ = 'Copyright (c) 2022 Yuji Sekiguchi, National Institute of Advanced Industrial Science and Technology (AIST)'
 __credits__ = ['Yuji Sekiguchi']
-__license__ = 'CC BY-NC-SA 4.0'
+__license__ = 'GPL3.0'
 __maintainer__ = 'Yuji Sekiguchi'
 __email__ = 'y.sekiguchi@aist.go.jp'
 __status__ = 'Development'
@@ -58,10 +58,9 @@ class SearchBestHit(object):
             if len(result_s) == 0:
                 result_s = sorted(hit.items(), key=lambda x: x[1], reverse=True)[
                     num3:]
-                if len(result_s) <= 100:
-                    print(
-                        'number of candidates from the 1st screening too low: ', input_file)
-                    ramd = 1
+            if len(result_s) <= 100:
+                print('number of candidates from the 1st screening too low: ', input_file)
+                ramd = 1
 
         dic = dict(result)
 

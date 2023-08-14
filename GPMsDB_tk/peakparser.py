@@ -3,7 +3,7 @@
 __author__ = 'Yuji Sekiguchi'
 __copyright__ = 'Copyright (c) 2023 Yuji Sekiguchi, National Institute of Advanced Industrial Science and Technology (AIST)'
 __credits__ = ['Yuji Sekiguchi']
-__license__ = 'CC BY-NC-SA 4.0'
+__license__ = 'GPL3.0'
 __maintainer__ = 'Yuji Sekiguchi'
 __email__ = 'y.sekiguchi@aist.go.jp'
 __status__ = 'Development'
