@@ -67,4 +67,4 @@ Please report bugs through the GitHub issues system, or contact Yuji Sekiguchi (
 
 Copyright (C) 2023 Yuji Sekiguchi, National Institute of Advanced Industrial Science and Technology (AIST)
 
-This package is under the conditions of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License. See LICENSE for further details.
+This package is under the conditions of the GNU General Public License (Version 3). See LICENSE for further details.
