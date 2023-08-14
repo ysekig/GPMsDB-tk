@@ -30,7 +30,7 @@ setup(
     packages=['GPMsDB_tk'],
     scripts=['bin/GPMsDB_tk'],
     package_data={'GPMsDB_tk': ['VERSION']},
-    url='',
+    url='https://github.com/ysekig/GPMsDB-tk',
     mdclass={'build_ext': build_ext},
     ext_modules=ext_modules,
     description='Toolkit for bacterial and archaeal identification based on MALDI-TOF MS peak lists.'
