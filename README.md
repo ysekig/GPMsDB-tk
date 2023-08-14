@@ -2,7 +2,7 @@
 
 GPMsDB-tk v1.0.1 was released on March 7, 2023. 
 
-GPMsDB-tk/GPMsDB-dbtk are software toolkits for assigning taxonomic identification to user-provided MALDI-TOF mass spectrometry profiles obtained from bacterial and archaeal cultured isolates. They take advantages of a newly developed database of protein mass profiles predicted from ~200,000 bacterial and archaeal genome sequences. This toolkit is also designed to work with customized databases, allowing microbial identification based on user-provided genome/metagenome-assembled genome (MAG) sequences. The GPMsDB-tk is open source and released under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License. 
+GPMsDB-tk/GPMsDB-dbtk are software toolkits for assigning taxonomic identification to user-provided MALDI-TOF mass spectrometry profiles obtained from bacterial and archaeal cultured isolates. They take advantages of a newly developed database of protein mass profiles predicted from ~200,000 bacterial and archaeal genome sequences. This toolkit is also designed to work with customized databases, allowing microbial identification based on user-provided genome/metagenome-assembled genome (MAG) sequences. The GPMsDB-tk is open source and released under the GNU General Public License (Version 3). 
 
 Please post questions and issues related to GPMsDB-tk on the Issues section of the GitHub repository.
 
