@@ -21,7 +21,7 @@ python setup.py install
 ```
 During the installation, you may see some deprecation warnings like “easy_install command is deprecated” but this will not cause any issues for GPMsDB-tk.
 
-GPMsDB-tk requires ~7 GB of external data that needs to be downloaded from Zenodo (DOI: [10.5281/zenodo.7703482](https://zenodo.org/record/7703483#.ZAbPNS_3Jf0)) and unarchived:
+GPMsDB-tk requires ~7 GB of external data that needs to be downloaded from Zenodo (DOI: [10.5281/zenodo.8245428](https://zenodo.org/record/8245428)) and unarchived:
 
 ```bash
 tar xvzf R01-RS95.tar.gz
