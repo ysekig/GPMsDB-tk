@@ -11,6 +11,7 @@ Please post questions and issues related to GPMsDB-tk on the Issues section of t
 Prerequisites
 * Python (version 3.7 or higher)
 * Cython (version 0.29.1 or higher)
+* scipy (version 1.7.3 or higher)
 * matplotlib (version 3.5.0 or higher)
 
 In the source directory, the following command will compile and install the software in your python environment.
