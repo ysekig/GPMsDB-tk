@@ -32,26 +32,6 @@ class OptionsParser():
         self.logger = logging.getLogger('GPMsDB_tk')
         self.stopwatch = StopWatch(self.logger)
 
-    def binFiles(self, binFolder, binExtension):
-        binFiles = []
-        if binFolder is not None:
-            all_files = os.listdir(binFolder)
-            for f in all_files:
-                if f.endswith(binExtension):
-                    binFile = os.path.join(binFolder, f)
-                    if os.stat(binFile).st_size == 0:
-                        self.logger.warning(
-                            "Skipping genome %s as it has a size of 0 bytes." % f)
-                    else:
-                        binFiles.append(binFile)
-
-        if not binFiles:
-            self.logger.error(
-                "No genomes found. Check the extension (-x) used to identify bins.")
-            sys.exit(1)
-
-        return sorted(binFiles)
-
     def inspect(self, options):
         logger_init(self.logger, None, silent=False)
         self.logger.info(
