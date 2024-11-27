@@ -126,8 +126,10 @@ class SearchBestHit(object):
         for k in dic2:
             if stdev == 0:
                 stdev = 0.01
-            upper = stats.norm.sf(x=scores[k], loc=(mean), scale=(stdev * 3))
-
+            if reference == "reps":
+                upper = stats.norm.pdf(x=scores[k], loc=(mean), scale=(stdev*1.5))
+            else:
+                upper = stats.norm.pdf(x=scores[k], loc=(mean), scale=(stdev*2))
             if hit[k] > prob1:
                 likel = "50%"
                 if upper < prob2:
