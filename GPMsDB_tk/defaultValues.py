@@ -31,9 +31,9 @@ class DefaultValues():
     HIT_RETAIN_FST = 200    #number of hits retained in the 1st screening based on ribosomal proteins
     HIT_SHOW = 20          #number of top hits shown
 
-    HIT_EXCLUDE_REP = 500    #number of top hits excluded for calculating average scores in representative db
+    HIT_EXCLUDE_REP = 1000    #number of top hits excluded for calculating average scores in representative db
     HIT_EXCLUDE_ALL = 50000    #number of top hits excluded for calculating average scores in all db
-    HIT_EXCLUDE_ALL2 = 200    #number of top hits excluded for calculating average scores in all db (2nd criteria)
+    HIT_EXCLUDE_ALL2 = 400    #number of top hits excluded for calculating average scores in all db (2nd criteria)
 
     GENE_LIMIT = 800    #number of genes under which gene number normalization is canceled
     RIBOSOMAL_WEIGHT = 7      #weighting of ribosomal protein detection compared with other proteins
