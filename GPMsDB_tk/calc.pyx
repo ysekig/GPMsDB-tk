@@ -76,6 +76,7 @@ cpdef tuple CalcRamdom(self, list ramdom_list, list peaks, double scan, int ppm,
       double upper_peak
       double lower_peak
       list result_init
+      list ramdom_list2
       dict result
       dict c = {}
       dict d = {}
@@ -83,9 +84,11 @@ cpdef tuple CalcRamdom(self, list ramdom_list, list peaks, double scan, int ppm,
       str gen
       str double_count = "No" #"Yes"
       float peak
+      
+    ramdom_list2 = random.sample(ramdom_list, 400)
 
-    for ind,(genome_id, _) in enumerate(ramdom_list):
-        if ind > 199:
+    for ind,(genome_id, _) in enumerate(ramdom_list2):
+        if ind > 399:
           break
         genome_peaks = db[genome_id]
         b = 0
