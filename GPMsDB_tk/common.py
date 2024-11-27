@@ -80,7 +80,7 @@ def selectDb(ref, tax):
         db_rep = DefaultValues.ALL_REPS_DB
         db_all = DefaultValues.ALL_ALL_DB
         no_genes = DefaultValues.ALL_GENE
-    if ref == 'cust':
+    if ref == 'custom':
         db_rep = DefaultValues.ALL_REPS_DB
         db_all = DefaultValues.ALL_ALL_DB
         no_genes = DefaultValues.ALL_GENE
