@@ -139,10 +139,7 @@ cpdef dict CalcScore(self, str score_type, dict reps, dict all, dict ms_reps, di
         if score_type == 'weighted':
           for k in all.keys():
             try:
-              if genes[k] < gl:
-                  j = gl
-              else:
-                  j = genes[k]
+              j = genes[k] if genes[k] < gl else gl
               h[k] = (rw * float(reps[k]) + float(all[k])) / j
             except KeyError:
               continue
@@ -150,10 +147,7 @@ cpdef dict CalcScore(self, str score_type, dict reps, dict all, dict ms_reps, di
         elif score_type == 'ms':
           for k in all.keys():
             try:
-              if genes[k] < gl:
-                  j = gl
-              else:
-                  j = genes[k]
+              j = genes[k] if genes[k] < gl else gl
               h[k] = (rw * float(ms_reps[k]) + float(ms_all[k])) / j
             except KeyError:
               continue
@@ -161,10 +155,7 @@ cpdef dict CalcScore(self, str score_type, dict reps, dict all, dict ms_reps, di
         elif score_type == 'unweighted':
           for k in all.keys():
             try:
-              if genes[k] < gl:
-                  j = gl
-              else:
-                  j = genes[k]
+              j = genes[k] if genes[k] < gl else gl
               h[k] = (float(reps[k]) + float(all[k])) / j
             except KeyError:
               continue
